@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="72922dba-48ab-438d-a000-7e3f545c0b4e" name="Changes" comment="" />
+    <list default="true" id="77dc5ff3-c7a9-41e2-afc1-3265cb4694fb" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,7 +10,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2CRRlKtgHr9sDNZNx0A55ZkUFwl" />
+  <component name="ProjectId" id="2CS64SV9LWnZUR1GvaBnfNAocRh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -74,7 +74,7 @@
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Solution" />
-      <module name="Electronics Shop" />
+      <module name="Cats and a Mouse" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method v="2">
@@ -90,11 +90,11 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="72922dba-48ab-438d-a000-7e3f545c0b4e" name="Changes" comment="" />
-      <created>1658763560867</created>
+      <changelist id="77dc5ff3-c7a9-41e2-afc1-3265cb4694fb" name="Changes" comment="" />
+      <created>1658783448336</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1658763560867</updated>
+      <updated>1658783448336</updated>
     </task>
     <servers />
   </component>
@@ -103,18 +103,38 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Solution.java</url>
-          <line>67</line>
+          <line>39</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Solution.java</url>
-          <line>60</line>
+          <line>43</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Solution.java</url>
-          <line>61</line>
+          <line>47</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Solution.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Solution.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Solution.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Solution.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
