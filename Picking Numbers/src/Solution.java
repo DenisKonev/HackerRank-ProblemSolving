@@ -32,8 +32,10 @@ class Result {
         for (final int elem : array) {
             if ((elem == integer) || (elem + 1 == integer)) {
                 subarray.add(elem);
+                System.out.print(elem + " ");
             }
         }
+        System.out.println();
         return subarray;
     }
 }
