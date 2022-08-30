@@ -21,18 +21,18 @@ class Result {
 
     public static String happyLadybugs(String b) {
         int count[] = new int[26];
-        for(int i=0;i<b.length();i++){
-            if(b.charAt(i)!='_')
-                count[b.charAt(i)-'A']++;
+        for(int i = 0; i < b.length(); i++){
+            if(b.charAt(i) != '_')
+                count[b.charAt(i) - 'A']++;
 
         }
         for(int i: count){
-            if(i==1)
+            if(i == 1)
                 return "NO";
         }
         if(!(b.contains("_"))){
-            for(int i=1;i<b.length()-1;i++){
-                if(b.charAt(i)!=b.charAt(i-1)&&b.charAt(i)!=b.charAt(i+1)){
+            for(int i = 1; i < b.length() - 1; i++){
+                if(b.charAt(i) != b.charAt(i-1) && b.charAt(i) != b.charAt(i+1)){
                     return "NO";
                 }
             }
