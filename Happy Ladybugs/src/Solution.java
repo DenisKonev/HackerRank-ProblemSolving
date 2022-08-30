@@ -29,7 +29,7 @@ class Result {
         for(int i: count)
             if(i == 1)
                 return "NO";
-        
+
         if(!(b.contains("_")))
             for(int i = 1; i < b.length() - 1; i++)
                 if(b.charAt(i) != b.charAt(i-1) && b.charAt(i) != b.charAt(i+1))
