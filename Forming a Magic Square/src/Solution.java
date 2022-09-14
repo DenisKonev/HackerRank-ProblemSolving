@@ -14,43 +14,30 @@ class Result {
      */
 
     public static int formingMagicSquare(List<List<Integer>> s) {
-        ArrayList<Integer> sumsList = new ArrayList<>(calculateSums(s));
-        int magicConstant = findMagicConstant(s, sumsList), sumOfModifications = 0;
+        //all magic squares possible for 3x3 matrix
+        int[][] magicSquares = {
+                { 8, 1, 6, 3, 5, 7, 4, 9, 2 },
+                { 4, 3, 8, 9, 5, 1, 2, 7, 6 },
+                { 2, 9, 4, 7, 5, 3, 6, 1, 8 },
+                { 6, 7, 2, 1, 5, 9, 8, 3, 4 },
+                { 6, 1, 8, 7, 5, 3, 2, 9, 4 },
+                { 8, 3, 4, 1, 5, 9, 6, 7, 2 },
+                { 4, 9, 2, 3, 5, 7, 8, 1, 6 },
+                { 2, 7, 6, 9, 5, 1, 4, 3, 8 }};
+        int[] array = s.stream().flatMap(Collection::stream).collect(Collectors.toList())
+                .stream().mapToInt(Integer::intValue).toArray();
+        // difference can't be more than 100, actually 45, but I'm too lazy to double-check it, so I put 100 :)
+        int minPossibleDifference = 100;
 
-
-        return sumOfModifications;
-    }
-
-    private static int findMagicConstant(List<List<Integer>> list, ArrayList<Integer> sumsList) {
-        SortedSet<Integer> sortedUniqueList = new TreeSet<>(sumsList);
-        int magicConstant = 0, currentMaxOccurrences = 0;
-
-        for (int val : sortedUniqueList) {
-            int numOfOccurrences = Collections.frequency(sumsList, val);
-            if (numOfOccurrences > currentMaxOccurrences) {
-                magicConstant = val;
-                currentMaxOccurrences = numOfOccurrences;
-            }
+        for (int i = 0; i < magicSquares.length; i++) {
+            int differenceSum = 0;
+            for (int j = 0; j < array.length; j++)
+                differenceSum += Math.abs(magicSquares[i][j] - array[j]);
+            if (minPossibleDifference > differenceSum)
+                minPossibleDifference = differenceSum;
         }
-        return magicConstant;
+        return minPossibleDifference;
     }
-
-    private static ArrayList<Integer> calculateSums(List<List<Integer>> list) {
-        int[][] array = list.stream()
-                .map(l -> l.stream().mapToInt(Integer::intValue).toArray())
-                .toArray(int[][]::new);
-        ArrayList<Integer> sumsList = new ArrayList<>();
-
-        //adding all eight sums to the list: 3 horizontal lines, 3 vertical & 2 diagonals
-        for (int i = 0; i < array.length; i++) {
-            sumsList.add(array[i][0] + array[i][1] + array[i][2]);
-            sumsList.add(array[0][i] + array[1][i] + array[2][i]);
-        }
-        sumsList.add(array[0][0] + array[1][1] + array[2][2]);
-        sumsList.add(array[0][2] + array[1][1] + array[2][0]);
-        return sumsList;
-    }
-
 }
 
 public class Solution {
