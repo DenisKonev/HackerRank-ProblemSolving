@@ -24,16 +24,20 @@ class Result {
     public static List<Integer> climbingLeaderboard(List<Integer> ranked, List<Integer> player) {
         Integer[] resultingPlaces = new Integer[player.size()];
         int rank = 1;
-
+		// go from higher value of player score to smaller value as we can count the rank from top of leaderboard. Note, both pointers are initialized here and so it makes it O(n+m)
         for (int p = player.size() - 1, r = 0; p >= 0; p--) {
+			// on the leaderboard go down from top, increment the rank. On each step compare the value with players score so that we can set rank for it.
             while ((r <= ranked.size() - 1) && (ranked.get(r) > player.get(p))) {
+				// if leaderboard score is higher than players score then continue and incremnet rank
                 if ((r != 0) && (ranked.get(r) < ranked.get(r - 1)))
                     rank++;
                 r++;
             }
+			// if players score is higher than that on leaderboard then set players rank to 1
             if (r == 0)
                 resultingPlaces[p] = 1;
             else
+			// else set players rank to be 1 more than the rank calculated so far as player will be next on the leaderboard
                 resultingPlaces[p] = rank + 1;
         }
         return Arrays.asList(resultingPlaces);
