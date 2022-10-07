@@ -1,17 +1,10 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
 import java.util.stream.*;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 class Result {
-
     /*
      * Complete the 'queensAttack' function below.
      *
@@ -25,106 +18,118 @@ class Result {
      */
 
     public static int queensAttack(int n, int k, int r_q, int c_q, List<List<Integer>> obstacles) {
+        /*  n - board size 	k - number of obstacles
+         *  r_q, c_q - queen's position     r_q = y	    c_q = x
+         */
         int result = 0;
-        boolean collision;
+        boolean collision = false;
 
-        for (int i = 0; i < 8; i++)
-            for (int j = 1; j < n; j++) {
-                collision = detectCollision(n, r_q, c_q, i, j, obstacles);
-                if (collision)
+        if (obstacles.isEmpty())
+            return noObstaclesResult(n, r_q, c_q);
+
+        /* first loop steps increment, second loop is representation of eight possible directions, e.g. from left to right
+         * i - step, j - direction
+         */
+        for (int j = 0; j < 8; j++)
+            for (int i = 1; i < n; i++)
+             {
+                collision = detectCollision(n, r_q, c_q, j, i, obstacles);
+                if (collision) {
+                    result += i - 1;
                     break;
-                result++;
+                }
             }
         return result;
     }
-    private static boolean detectCollision(int boardSize, int queenY, int queenX, int direction, int step, List<List<Integer>> obstacles) {
-        boolean collision = false;
-        int[][] obstArray = new int[boardSize][boardSize];
 
-        for (List<Integer> obst : obstacles) {
-            int r = boardSize - obst.get(0);    // row index
-            int c = obst.get(1) - 1;            //column index
-            obstArray[r][c] = 1;
+    private static int noObstaclesResult(int boardSize, int y, int x) {
+        int result = (boardSize - 1) * 2;
+
+        if (y > x) {
+            result += (x - 1) * 2;
+            result += boardSize - y;
+            result += y - 1;
         }
+        else if (y < x) {
+            result += (y - 1) *2;
+            result += boardSize - x;
+            result += x - 1;
+        } else
+            result += boardSize - 1;
+        return result;
+    }
+
+    private static boolean detectCollision(int boardSize, int queenY, int queenX, int direction, int step, List<List<Integer>> obstacles) {
+        int newQueenX, newQueenY;
+        boolean collision = false;
 
         /* r - right, l - left, u - up, d - down, direction var shows where the queen goes, e.g. lr 0 - from left to right
+         lu 4 - diagonal direction left upwards
          * 2 horizontal	directions	  lr 0	rl 1
          * 2 vertical directions	  du 2	ud 3
          * 4 diagonal directions	  lu 4	ld 5	rd 6	ru 7
          */
-        switch (direction) {
-            case 0:
-                if ((queenX + step > boardSize) || (obstArray[boardSize - queenY][queenX + step - 1] == 1 )) {
-                    collision = true;
-                }
-                else {
-                    collision = false;
-                }
-                break;
-            case 1:
-                if ((queenX - step == 0) || (obstArray[boardSize - queenY][queenX - step - 1] == 1 )) {
-                    collision = true;
-                }
-                else {
-                    collision = false;
-                }
-                break;
-            case 2:
-                if ((queenY + step > boardSize) || (obstArray[boardSize - queenY - step][queenX - 1] == 1 )) {
-                    collision = true;
-                }
-                else {
-                    collision = false;
-                }
-                break;
-            case 3:
-                if ((queenY - step == 0) || (obstArray[boardSize - queenY + step][queenX - 1] == 1 )) {
-                    collision = true;
-                }
-                else {
-                    collision = false;
-                }
-                break;
-            case 4:
-                if ((queenX + step > boardSize) || (queenY + step > boardSize) ||
-                        ((obstArray[boardSize - queenY][queenX + step - 1] == 1 ) && (obstArray[boardSize - queenY - step][queenX - 1] == 1 ))) {
-                    collision = true;
-                }
-                else {
-                    collision = false;
-                }
-                break;
-            case 5:
-                if ((queenX + step > boardSize) || (queenY - step == 0) ||
-                        ((obstArray[boardSize - queenY][queenX + step - 1] == 1 ) && (obstArray[boardSize - queenY + step][queenX - 1] == 1 ))) {
-                    collision = true;
-                }
-                else {
-                    collision = false;
-                }
-                break;
-            case 6:
-                if ((queenX - step == 0) || (queenY + step > boardSize) ||
-                        ((obstArray[boardSize - queenY][queenX - step - 1] == 1 ) && (obstArray[boardSize - queenY + step][queenX - 1] == 1 ))) {
-                    collision = true;
-                }
-                else {
-                    collision = false;
-                }
-                break;
-            case 7:
-                if ((queenX - step == 0) || (queenY - step == 0) ||
-                        ((obstArray[boardSize - queenY][queenX - step - 1] == 1 ) && (obstArray[boardSize - queenY - step][queenX - 1] == 1 ))) {
-                    collision = true;
-                }
-                else {
-                    collision = false;
-                }
+        for (List<Integer> obstacle : obstacles) {
+            int obstacleY = obstacle.get(0);
+            int obstacleX = obstacle.get(1);
+            switch (direction) {
+                case 0:
+                    newQueenX = queenX + step;
+                    if ((newQueenX > boardSize) || detectObstacleCollision(newQueenX, queenY, obstacleX, obstacleY))
+                        collision = true;
+                    break;
+                case 1:
+                    newQueenX = queenX - step;
+                    if ((newQueenX == 0) || detectObstacleCollision(newQueenX, queenY, obstacleX, obstacleY))
+                        collision = true;
+                    break;
+                case 2:
+                    newQueenY = queenY + step;
+                    if ((newQueenY > boardSize) || detectObstacleCollision(queenX, newQueenY, obstacleX, obstacleY))
+                        collision = true;
+                    break;
+                case 3:
+                    newQueenY = queenY - step;
+                    if ((newQueenY == 0) || detectObstacleCollision(queenX, newQueenY, obstacleX, obstacleY))
+                        collision = true;
+                    break;
+                case 4:
+                    newQueenX = queenX + step;
+                    newQueenY = queenY + step;
+                    if ((newQueenX > boardSize) || (newQueenY > boardSize) || detectObstacleCollision(newQueenX, newQueenY, obstacleX, obstacleY))
+                        collision = true;
+                    break;
+                case 5:
+                    newQueenX = queenX + step;
+                    newQueenY = queenY - step;
+                    if ((newQueenX > boardSize) || (newQueenY == 0) || detectObstacleCollision(newQueenX, newQueenY, obstacleX, obstacleY))
+                        collision = true;
+                    break;
+                case 6:
+                    newQueenX = queenX - step;
+                    newQueenY = queenY + step;
+                    if ((newQueenX == 0) || (newQueenY > boardSize) || detectObstacleCollision(newQueenX, newQueenY, obstacleX, obstacleY))
+                        collision = true;
+                    break;
+                case 7:
+                    newQueenX = queenX - step;
+                    newQueenY = queenY - step;
+                    if ((newQueenX == 0) || (newQueenY == 0) || detectObstacleCollision(newQueenX, newQueenY, obstacleX, obstacleY))
+                        collision = true;
+                    break;
+            }
+            if (collision)
                 break;
         }
         return collision;
     }
+    private static boolean detectObstacleCollision(int queenX, int queenY, int obstacleX, int obstacleY) {
+        boolean collision = false;
 
+        if ((queenX == obstacleX) && (queenY == obstacleY))
+            collision = true;
+        return collision;
+    }
 }
 
 public class Solution {
