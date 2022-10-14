@@ -29,68 +29,55 @@ public class Solution {
         long ans = 0;
 
         for (int i=cQ-1;i>=1;i--){
-            if (ll.get(rQ).contains(i)){
-                break;
-            }
+            if (ll.get(rQ).contains(i))
             ans++;
         }
 
         for (int i=cQ+1;i<=n;i++){
-            if (ll.get(rQ).contains(i)){
-
+            if (ll.get(rQ).contains(i))
                 break;
-            }
             ans++;
         }
 
         for (int i=rQ-1;i>=1;i--){
-            if (ll2.get(cQ).contains(i)){
-
+            if (ll2.get(cQ).contains(i))
                 break;
-            }
             ans++;
         }
 
         for (int i=rQ+1;i<=n;i++){
-            if (ll2.get(cQ).contains(i)){
-
+            if (ll2.get(cQ).contains(i))
                 break;
-            }
             ans++;
         }
 
         int cc = cQ-1;
         for (int i=rQ-1;i>=1;i--){
-            if (cc==0 || ll.get(i).contains(cc)){
-                break;
-            }
+            if (cc==0 || ll.get(i).contains(cc))
             cc--;
             ans++;
         }
 
         cc = cQ-1;
-        for (int i=rQ+1;i<=n;i++){
-            if (cc==0 || ll.get(i).contains(cc)){
+        for (int i=rQ+1;i<=n;i++) {
+            if (cc==0 || ll.get(i).contains(cc))
                 break;
-            }
             cc--;
             ans++;
         }
 
         cc = cQ+1;
         for (int i=rQ+1;i<=n;i++){
-            if (cc==n+1 || ll.get(i).contains(cc)){
+            if (cc==n+1 || ll.get(i).contains(cc))
                 break;
-            }
             cc++;
             ans++;
         }
 
         cc = cQ+1;
         for (int i=rQ-1;i>=1;i--){
-            if (cc==n+1 || ll.get(i).contains(cc)){
+            if (cc==n+1 || ll.get(i).contains(cc))
                 break;
-            }
             cc++;
             ans++;
         }
